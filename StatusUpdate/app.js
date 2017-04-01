@@ -1,4 +1,5 @@
-var post;
+/*var post;
+
 function chat_send(msg){
     console.log("about to ajax");
     $.post('index.php', {'function' : 'send', 'message': msg}).done(function(message){
@@ -13,19 +14,22 @@ function update(){
         });
     }
 }
-
+*/
 var main=function(){
     //var repeat = setInterval(update, 1000);
+    var socket = io();
     $('.btn').click(function(){
         
         var post=$('.status-box').val();
-        $('<li>').text(post).prependTo('.posts');
-        //chat_send(pst);
+        //$('<li>').text(post).prependTo('.posts');
+        socket.emit('chat message', post);
         $('.status-box').val('');
         $('.counter').text(140);
         $(".btn").addClass("disabled");
         });
-        
+    socket.on('chat message', function(msg){
+        $('<li>').text(post).prependTo('.posts');
+    });    
     $('.status-box').keyup(function(){
         var postLength= $(this).val().length;
         var charactersLeft = 140 - postLength;
@@ -42,4 +46,5 @@ var main=function(){
     });
     $('.btn').addClass('disabled')
 };
+
 $(document).ready(main)                 
