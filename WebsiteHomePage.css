@@ -1,0 +1,69 @@
+html{
+  margin: 0;
+  font-family: 'Arvo', serif;
+  font-size: 16px;
+  width:auto;
+  background:gray;
+}
+body{
+	font-family: 'Arvo',serif;
+	font-size: 16px;
+        opacity: 50%;
+        background:gray;
+}
+.container{
+    max-width: auto;
+    width: 100%;
+    min-height: 800px;
+    height:auto;
+    overflow: hidden;
+    margin: 0 auto;
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+
+}
+.main{
+        display: block;
+        margin:0 auto;
+	width:85%;
+	float:none;
+	height:auto;
+    padding-top:50px;
+    position:relative;
+        
+}
+
+h1{
+	font-size: 33px;
+	text-align: center;
+	margin-bottom: 45px;
+
+}
+.works{
+
+        margin-left:37%;
+	margin-right:50%;
+}
+
+.btn{
+	text-align: center;
+	width:10em;
+}
+#c {
+	background-image: url(http://www.hdwallpapers.in/walls/good_morning-wide.jpg);
+}
+#b {
+	background-image: url("http://img15.deviantart.net/708e/i/2009/137/e/b/autumn_stock_1_by_dezzan_stock.jpg");
+}
+#a {
+	background-image:url("http://www.designsnext.com/wp-content/uploads/2013/12/natural-scenes.jpg");
+}
+.text{
+	margin:5% auto;
+	width:45%;
+	background-color: rgba(260, 260, 260,.8);
+        min-height: 400px;
+        
+
+}

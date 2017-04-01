@@ -1,0 +1,21 @@
+.nav ul{
+	width:inherit;
+	margin:inherit;
+}
+.nav{
+        height: 5%;
+	margin-left: 0px;
+	width:110%;
+	position:fixed;
+	background-color:black;
+        z-index: 5;
+        overflow:hidden;
+
+}
+.nav-pills li{
+	font-size: 24px;
+	text-align: center;
+}
+.nav-pills div{
+	width:1/3;
+}

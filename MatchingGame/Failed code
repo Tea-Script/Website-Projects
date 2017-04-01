@@ -1,0 +1,100 @@
+var locations = [[0,1,2,3],
+				[0,1,2,3],
+				[0,1,2,3]]
+var images = ["http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg",
+				"http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg",
+				"http://blogs.plos.org/biologue/files/2015/03/issue-image-Feb.jpg",
+				"http://theartmad.com/wp-content/uploads/2015/06/Chewbacca-1.png",
+				"http://www.junkiemonkeys.com/wp-content/uploads/2015/11/5mxAOMW-931x1024.jpg",
+				"http://static.giantbomb.com/uploads/original/0/6628/429121-revan_s_return_by_tansy9.jpg"];
+images=images.concat(images)
+var assgnImage = function(imageurl,id){ //for the given id and string, sets the bckgrd img of element #id 
+	//Id of found image tag//
+	$("#"+id).css("background-image","url("+imageurl +")");
+	};
+function getRandomInt(min, max) {   //returns randint >max and <=min
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+function slice(array, start, end, step) { //implementing pythons slice
+    if (start===null)
+    	{start=0};
+    if (end===null)
+    	{end=array.length};
+    if (!step) {step=1};
+    var result = array.slice(start, end);
+    if (step < 0) result.reverse();
+    step = Math.abs(step);
+    if (step > 1) {
+        var final = [];
+        for (var i = result.length; i > 0; i--) {
+            (i % step === 0) && final.push(result[i]);
+        };
+        final.reverse();
+        result = final;
+   }
+   return result;
+}
+function RandomImage(n){  //the array of images is shuffled thoroughly
+	for (var i = 0; i < n; i++) {
+		var image = slice(images,1,null,2).concat(slice(images,0,null,2));
+		var newimage=slice(image,1,-1,1).concat(image[0]).concat(image[-1]);
+		image=newimage;
+	}
+	return image;
+};
+function resetGame(){ //images is reordered a random nmber of times
+	var top = getRandomInt(1,45);
+	return RandomImage(top);
+};
+function noMatch(){
+	for(var i=0;i<=images.length;i++){
+		$("#"+i).removeClass("active");
+		$("#"+i).removeClass("current").delay(5000);
+		$("#"+i).addClass("default");
+	}
+};
+var main=function(){
+	noMatch();
+	
+	$('.default').click(function(){
+		if($('img').hasClass('active')===false){
+			var id=this.id;
+			assgnImage(images[id],id);
+			images.splice(id,1);
+			$('#'+id).removeClass("default");
+			$('#'+id).addClass("active");
+		}
+		
+
+		else{
+			var id=$(this).attr('id');
+			assgnImage(images[id],id);
+			$('#'+id).removeClass("default");
+			$('#'+id).addClass("current");			
+			var idd=$('.active').attr('id');
+			if(id===idd){
+				alert("same id: "+String(images));
+				images.splice(id,0,$(this).css('background-image'));				
+				noMatch();
+			}
+			else if($('#'+id).css('background-image')=== $('#'+idd).css('background-image')&& $(this)!==$('.active')){
+				alert("same picture: "+String(images));
+				images.splice(id,1);
+				$('#'+id).remove();
+				$('#'+idd).remove();
+			}
+	
+			else{
+				images.splice(idd,0,$('.active').css('background-image'));				
+				var wait =window.setTimeout(noMatch,1600);
+				wait;
+			}
+		}
+	if($(".default").length ===0 && $(".active").length===0){
+		alert("Congratulations! You have won!");
+		$("body").append("<div><h1>May The Force Be With You</h1></div>");
+		$("body").append("<img class='special'>");
+	}
+	});
+}
+$(document).ready(main);

@@ -1,0 +1,114 @@
+html,body{
+        background:
+        linear-gradient(45deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(180deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(45deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(140deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#ed1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: aqua;
+        background-size: 20px 20px;
+        background-repeat: repeat-both;
+}
+body>:nth-child(1){
+        margin-bottom:20px;
+}
+body>:nth-child(2){
+        margin-top:25px;
+        position:relative;
+}
+/*body>:nth-child(2) > :nth-child(1){
+        background-color:#000066;
+        width:500px;
+        opacity:30%;
+        margin-left:auto;
+        margin-right:auto;
+}*/
+.col-md-3{
+        margin-left:60px;
+        width:18%;
+        
+}
+h1{
+        font-size:30px;
+        text-align:center;
+        color: #66CC33;
+        font-weight:bold;
+
+}
+img{	
+	display: block;
+       -moz-box-sizing: border-box;
+        box-sizing: border-box;
+	width: 190px; /* Width of new image */
+	height: 230px; /* Height of new image */
+	border-style:solid;
+	border-radius: 10%;
+	border-color: black;
+	border-width: 3px;
+        margin-left:40px;
+
+}
+.row:not([role="navigation"]){
+       padding-bottom:8px;
+       height:230px;
+}
+
+.default{
+	background-image:url("https://filletfamilyblog.files.wordpress.com/2013/02/d0490860-0-large.jpg") !important;
+	background-size: contain;
+        background-repeat: no-repeat;	
+        background-position:center;
+        background-color:white;
+}
+.active{
+	background-size: 100% 100%;
+        background-repeat: no-repeat;
+        //background-position: center;
+        
+}
+.nav{
+	position:absolute;
+	background-color:black;
+	width:100%;
+        opacity:.15%;
+        padding-left:auto;
+        padding-right:auto;
+        height:30px !important;
+}
+.nav-pills li{
+	font-size: 24px;
+	float:left;
+	text-align: center;
+	margin-left: 45%;
+}
+.nav-pills div{
+	width:33%;
+}
+.current{
+	background-size: 100% 100%;
+        background-repeat: no-repeat;
+        //background-position: center;
+}
+.special{
+	background-image:url("http://static.comicvine.com/uploads/original/14/147508/4499972-kenobi.jpg");
+	background-size: cover;
+	width: 1000px;
+	height:700px;
+}
+.force{
+        text-align:left;
+        color:blue;
+        font-weight:bold;
+        font-size:40;
+}			
+.score{
+       width:auto;
+       height:30px;
+       font-size: 24px;
+       margin-right:auto;
+       margin-left:auto;
+       font-weight:bold;
+       text-align:center;
+}										
+		
