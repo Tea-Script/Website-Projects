@@ -18,7 +18,10 @@ var main=function(){
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
-        $.post('./index.php',{send: post} );
+        $.post('./index.php',{send: post}, function(response){
+            alert(response);
+
+        });
         chat_send(post);
         //$('<li>').text(post).prependTo('.posts');
         //socket.emit('chat message', post);
