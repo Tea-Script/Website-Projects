@@ -16,7 +16,7 @@ function update(){
 */
 var main=function(){
     //var repeat = setInterval(update, 1000);
-    var socket = io();
+    //var socket = io();
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
