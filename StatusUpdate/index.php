@@ -28,10 +28,10 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="./app.js"></script>
     <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
-          if($_POST){
+          if($_REQUEST['send']){
             echo "<script type='text/javascript'>alert('POST');</script>";
-            if(isset($_POST['post'])){
-              post($_POST['post']);
+            if(isset($_POST['send'])){
+              post($_POST['send']);
 
             }
 

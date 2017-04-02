@@ -1,6 +1,6 @@
 function chat_send(msg){
     console.log("about to ajax");
-    $.post('index.php', {post: msg}).done(function(){
+    $.post('index.php', {send: msg}).done(function(){
         console.log("success");
     });
 }
