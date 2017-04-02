@@ -6,7 +6,10 @@
     <link href="../navbar.css" rel="stylesheet">
   </head>
   <body>
-    <?php include("../navbar.html"); ?>
+    <?php include("../navbar.html");
+          error_reporting(E_ALL);
+          ini_set('display_errors', 'on');
+    ?>
     <div class="container">
       <form>
         <div class="form-group">
