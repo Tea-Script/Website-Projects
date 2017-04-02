@@ -19,7 +19,7 @@ var main=function(){
 
         var post=$('.status-box').val();
         $.post('./chat.php',{send: post}, function(response){
-            //alert(response);
+            alert(response);
 
         });
         chat_send(post);

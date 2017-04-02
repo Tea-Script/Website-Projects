@@ -7,8 +7,8 @@ switch($_SERVER['REQUEST_METHOD'])
 
   case 'POST':
       $msg = $_POST['send'];
-      //echo "'$msg'";
-      echo "<script type='text/javascript'>alert('POST');</script>";
+      echo "'$msg'";
+      //echo "<script type='text/javascript'>alert('POST');</script>";
       break;
 }
 
