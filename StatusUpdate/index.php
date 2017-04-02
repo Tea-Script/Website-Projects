@@ -34,13 +34,17 @@
 
 
           }
+          elseif($_GET){
+            //exit;
+
+          }
 
           function post($msg){
             echo "<script type='text/javascript'>
                       $('<li>').text(" . $msg . ").prependTo('.posts');
                       console.log('successful php');
                   </script>" ;
-            exit;
+            //exit;
           }
 
 /*
