@@ -29,7 +29,7 @@
     <script src="./app.js"></script>
     <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
           if($_POST){
-            echo "post request received";
+            echo "<script type='text/javascript'>alert('POST');</script>";
             if(isset($_POST['post'])){
               post($_POST['post']);
 
@@ -39,7 +39,7 @@
           }
           elseif($_GET){
             //exit;
-            echo "get request received";
+            echo "<script type='text/javascript'>alert('GET');</script>";
 
           }
 
