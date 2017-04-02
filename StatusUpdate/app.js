@@ -18,8 +18,8 @@ var main=function(){
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
-        $.post('./index.php',{send: post}, function(response){
-            alert(response);
+        $.post('./chat.php',{send: post}, function(response){
+            //alert(response);
 
         });
         chat_send(post);
