@@ -30,9 +30,8 @@
     <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
           if($_POST){
             //echo "post request received";
-            if(isset($_POST["post"])){
-              post($_POST["post"]);
-              break;
+            if(isset($_POST['post'])){
+              post($_POST['post']);
 
             }
 
@@ -45,10 +44,7 @@
           }
 
           function post($msg){
-            echo "<script type='text/javascript'>
-                      $('<li>').text(" . $msg . ").prependTo('.posts');
-                      console.log('successful php');
-                  </script>" ;
+            echo "<script type='text/javascript'>$('<li>').text('dummy message').prependTo('.posts');console.log('successful php');</script>";
             //exit;
           }
     ?>
