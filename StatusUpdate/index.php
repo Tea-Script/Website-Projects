@@ -27,26 +27,32 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="./app.js"></script>
-    <?php //echo "<script type='text/javascript'>alert('This page is under construction');</script>";
-          if($_POST){
+    <?php
+    switch($_SERVER['REQUEST_METHOD'])
+    {
+      case 'GET':
+          echo "<script type='text/javascript'>alert('GET');</script>";
+          break;
+
+      case 'POST':
+        $function = $_POST['function'];
+        switch ($function) {
+          case('send'):
             echo "<script type='text/javascript'>alert('POST');</script>";
-            /*if(isset($_POST['send'])){
+            break;
+        }
+    }
+
+
+    /*if(isset($_POST['send'])){
               post($_POST['send']);
 
             }*/
 
-
-          }
-          elseif($_GET){
-            //exit;
-            echo "<script type='text/javascript'>alert('GET');</script>";
-
-          }
-
-          function post($msg){
-            echo "<script type='text/javascript'>$('<li>').text('dummy message').prependTo('.posts');console.log('successful php');</script>";
-            //exit;
-          }
+    function post($msg){
+      echo "<script type='text/javascript'>$('<li>').text('dummy message').prependTo('.posts');console.log('successful php');</script>";
+      //exit;
+    }
     ?>
   </body>
 </html>
