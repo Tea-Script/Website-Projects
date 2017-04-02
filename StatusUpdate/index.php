@@ -36,10 +36,10 @@
 
       case 'POST':
         $msg = $_POST['send'];
-        echo "<script type='text/javascript'>alert('$msg');</script>";
+        echo "<script type='text/javascript'>alert('POST');</script>";
 
     }
-    
+
 
     function post($msg){
       echo "<script type='text/javascript'>$('<li>').text('dummy message').prependTo('.posts');console.log('successful php');</script>";

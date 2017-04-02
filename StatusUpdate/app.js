@@ -1,8 +1,6 @@
 function chat_send(msg){
     console.log("about to ajax");
-    $.post('index.php', {send: msg}).done(function(){
-        console.log("success");
-    });
+    $.post('index.php', {send: msg});
 }
 /*
 function update(){
@@ -17,6 +15,7 @@ function update(){
 var main=function(){
     //var repeat = setInterval(update, 1000);
     //var socket = io();
+    chat_send("Please Post");
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
