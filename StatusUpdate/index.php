@@ -26,13 +26,10 @@
     <script src="./app.js"></script>
     <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
           if($_POST){
-            if(isset($_POST["function"])){
-              switch ($_POST["function"])
-              {
-                case 'post':
-                  post($_POST["message"]);
-                  break;
-              }
+            if(isset($_POST["post"])){
+              post($_POST["post"]);
+              break;
+
             }
 
 
@@ -41,6 +38,7 @@
           function post($msg){
             echo "<script>
                       $('<li>').text(" . $msg . ").prependTo('.posts');
+                      console.log('successful php');
                   </script>" ;
             exit;
           }
