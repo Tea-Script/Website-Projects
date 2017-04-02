@@ -35,9 +35,9 @@
           break;
 
       case 'POST':
-        $msg = $_POST['send'];
-        echo "<script type='text/javascript'>alert('POST');</script>";
-
+          $msg = $_POST['send'];
+          echo "<script type='text/javascript'>alert('POST');</script>";
+          break;
     }
 
 
