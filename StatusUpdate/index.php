@@ -17,7 +17,7 @@
         <p class="counter">140</p>
         <a href="#" class="btn btn-primary">Post</a>
       </div>
-    
+
       <ul class="posts">
       </ul>
     </div>
@@ -25,9 +25,27 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="./app.js"></script>
     <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
+          if($_POST){
+            if(isset($_POST["function"])){
+              switch ($_POST["function"])
+              {
+                case 'post':
+                  post($_POST["message"]);
+                  break;
+              }
+            }
 
 
-/* 
+          }
+
+          function post($msg){
+            echo "<script>
+                      $('<li>').text(" . $msg . ").prependTo('.posts');
+                  </script>" ;
+            exit;
+          }
+
+/*
     switch($_SERVER['REQUEST_METHOD'])
     {
       case 'GET':
@@ -44,7 +62,7 @@
 
 
 
-        break;  
+        break;
 
       case 'POST':
         $function = $_POST['function'];
