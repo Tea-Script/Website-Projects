@@ -27,8 +27,8 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="./app.js"></script>
-    <?php echo "<script type='text/javascript'>alert('This page is under construction');</script>";
-          if($_REQUEST["send"]){
+    <?php //echo "<script type='text/javascript'>alert('This page is under construction');</script>";
+          if($_POST){
             echo "<script type='text/javascript'>alert('POST');</script>";
             /*if(isset($_POST['send'])){
               post($_POST['send']);
