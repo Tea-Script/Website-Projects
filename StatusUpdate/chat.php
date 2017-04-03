@@ -5,13 +5,13 @@ $home = "";
 switch($_SERVER['REQUEST_METHOD'])
 {
   case 'GET':
-      if(file_exists($home . "chat.txt")){
-          echo file_get_contents($home . "chat.txt"); //submit csv messages to post
+      if(file_exists("chat.txt")){
+          echo file_get_contents("chat.txt"); //submit csv messages to post
       }
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
-      file_put_contents($home . "chat.txt", '');
+      file_put_contents("chat.txt", '');
       break;
 
   case 'POST':
