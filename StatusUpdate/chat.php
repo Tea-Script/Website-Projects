@@ -2,13 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
-if(!isset($messages)){
-  $messages = array();
-}
 switch($_SERVER['REQUEST_METHOD'])
 {
   case 'GET':
-      if(! empty($messages)){
+      if(isset($messages) && !empty($messages)){
           echo json_encode($messages); //submit array of messages to post
       }
       else{
@@ -18,6 +15,9 @@ switch($_SERVER['REQUEST_METHOD'])
       break;
 
   case 'POST':
+      if(!isset($messages)){
+        $messages = array();
+      }
       $msg = $_POST['send'];
       $messages[] = $msg;
       echo "Message: $msg posted";
