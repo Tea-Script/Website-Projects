@@ -14,8 +14,9 @@ function getNumMgs(){
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
       if(msgs){
+        console.log(msg_total);
         msgs = msgs.split('\n');
-        for(var i = msg_total; i < msgs.length - 1; i++){
+        for(var i = msg_total; i < msgs.length; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
           msg_total++;
