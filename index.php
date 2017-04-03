@@ -6,20 +6,20 @@
 		<title>The Programs of Matthew Ciaramitaro</title>
 	</head>
 	<body>
-                <?php include("navbar.html");?>
+    <?php include("navbar.html");?>
 		<div class="main">
-                        <div class="container">
-			<div id="c">
-				<div class="text" id = "bio">
-					
+      <div class="container">
+				<div id="c">
+					<div class="text" id = "bio">
+
 					<h1>Bio</h1>
-                                        
-                                            <p>I am a programmer in New England adding various programs to this website.
-                                               I've been programming for three years and am currently working on updating the code that 
-                                               I hadn't backed up when the hosting server removed my website from their server. 
-                                               Coming Soon: Pong AI fix, Scheduling Extension and Android App.
-                                            </p>
-                                        
+
+              <p>I am a programmer in New England adding various programs to this website.
+                 I've been programming for three years and am currently working on updating the code that
+                 I hadn't backed up when the hosting server removed my website from their server.
+                 Coming Soon: Pong AI fix, Scheduling Extension and Android App.
+              </p>
+
 				</div>
 			</div>
 
@@ -29,7 +29,7 @@
 					<h1>Interactive Webpages</h1>
 					<div class="works">
 						<a class="btn btn-default" href="http://ciaracoding.16mb.com/DragRacingJquery/">Draggable Car</a>
-						<a class="btn btn-default" href="http://ciaracoding.16mb.com/StatusUpdate/">Status Updater</a>
+						<a class="btn btn-default" href="http://ciaracoding.16mb.com/Chat/">Chat Room</a>
 			                        <a class="btn btn-default" href="http://ciaracoding.16mb.com/MatchingGame">Matching Game</a>
                 			        <a class="btn btn-default" href="http://ciaracoding.16mb.com/Pong">Pong</a>
 			        	</ul>
@@ -38,10 +38,10 @@
 	        </div>
 	    	<div id="a">
 	    		<div class="text">
-					<h1>Apps</h1>
-				</div>
-			</div>
+						<h1>Apps</h1>
+					</div>
+			 </div>
 		</div>
-                </div>
+   </div>
 	</body>
 </html>
