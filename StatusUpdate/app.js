@@ -17,6 +17,7 @@ function update(){ //requests new messages from server (automatically every 10s)
       }
       else{/*temporary else for debugging*/
         console.log("msgs is empty");
+      }
     });
 
 }
