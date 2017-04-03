@@ -8,18 +8,18 @@ function chat_send(msg){ //posts message requests to server
 
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
-      var count;
-      $.post('./chat.php', {req: "num"}, function(num){
-          count = num;
+      /*var count;
+        $.post('./chat.php', {req: "num"}, function(num){
+          msg_total = num;
 
-      });
+      });*/
 
       if(msgs){
         msgs = msgs.split(',');
-        for(var i = 0; i < msgs.length - 1; i++){
+        for(var i = msg_total; i < msgs.length - 1; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
-          msg_total++;
+          msg_total = (msg_total + 1) % 7;
         }
       }
     });
