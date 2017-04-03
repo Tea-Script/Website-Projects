@@ -20,7 +20,7 @@ function update(){ //requests new messages from server (automatically every 10s)
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
           msg_total++;
-          if(msg_total > 10){
+          if(msg_total > 50){
             msg_total = getNumMgs();
           }
         }

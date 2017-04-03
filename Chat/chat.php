@@ -26,7 +26,7 @@ switch($_SERVER['REQUEST_METHOD'])
       }
       elseif(isset($_POST['req'])){
         $posts = count(file("chat.txt"));
-        if($posts > 10 || $posts <= 0){
+        if($posts > 50 || $posts <= 0){
           file_put_contents('chat.txt', "");
           $posts = 0;
         }
