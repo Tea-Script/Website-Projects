@@ -8,12 +8,6 @@ function chat_send(msg){ //posts message requests to server
 
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
-      /*var count;
-        $.post('./chat.php', {req: "num"}, function(num){
-          msg_total = num;
-
-      });*/
-
       if(msgs){
         msgs = msgs.split(',');
         for(var i = msg_total; i < msgs.length - 1; i++){
@@ -22,6 +16,10 @@ function update(){ //requests new messages from server (automatically every 10s)
           msg_total = (msg_total + 1);
         }
       }
+      if(msg_total > 10){
+        $.post('./chat.php', {req: "reset"}, function(num){
+          msg_total = num;
+      });
     });
 
 }
@@ -29,7 +27,6 @@ function update(){ //requests new messages from server (automatically every 10s)
 var main=function(){
     var repeat = setInterval(update, 500);
     $('.btn').click(function(){
-
         var post=$('.status-box').val();
         chat_send(post);
         $('.status-box').val('');
