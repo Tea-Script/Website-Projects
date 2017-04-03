@@ -1,30 +1,36 @@
-var msg_total = 0;
+var msg_total;
 function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
     $.post('./chat.php',{send: msg}, function(msg){
           console.log(msg);
     });
 }
+function getNumMgs(){
+  $.post('./chat.php', {req: "reset"}, function(num){
+    msg_total = num;
+  });
 
+}
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
       if(msgs){
-        msgs = msgs.split(',');
+        msgs = msgs.split('\n');
         for(var i = msg_total; i < msgs.length - 1; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
-          msg_total = (msg_total + 1);
+          msg_total++;
+          if(msg_total > 10){
+            msg_total = getNumMgs();
+          }
         }
       }
-      if(msg_total > 10){
-        $.post('./chat.php', {req: "reset"}, function(num){
-          msg_total = num;
-      });
+
     });
 
 }
 
 var main=function(){
+    msg_total = genNumMsgs();
     var repeat = setInterval(update, 500);
     $('.btn').click(function(){
         var post=$('.status-box').val();
