@@ -1,24 +1,28 @@
-function chat_send(msg){
+function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
     $.post('./chat.php',{send: msg}, function(response){
         console.log(response);
+        update();
     });
 }
 
-function update(){
+function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', function(msgs){
+      console.log(msgs);
       if(msgs){
+        console.log("Updates Received: ");
         for(msg in msgs){
           $('<li>').text(msg).prependTo('.posts');
         }
       }
+      else{/*temporary else for debugging*/
+        console.log("msgs is empty");
     });
 
 }
 
 var main=function(){
-    var repeat = setInterval(update, 10000);
-    //var socket = io();
+    //var repeat = setInterval(update, 500);
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
