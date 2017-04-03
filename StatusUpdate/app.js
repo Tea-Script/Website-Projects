@@ -19,7 +19,7 @@ function update(){ //requests new messages from server (automatically every 10s)
         for(var i = msg_total; i < msgs.length - 1; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
-          msg_total = (msg_total + 1) % 7;
+          msg_total = (msg_total + 1);
         }
       }
     });

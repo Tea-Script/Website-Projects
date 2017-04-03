@@ -10,7 +10,7 @@ switch($_SERVER['REQUEST_METHOD'])
           $posts = count(preg_split("," , file_get_contents("chat.txt"))) - 1;
           echo file_get_contents("chat.txt"); //submit csv messages to post
           if($posts >= 7){
-            file_put_contents('chat.txt', "");
+            //file_put_contents('chat.txt', "");
           }
       }
       else{
