@@ -14,7 +14,7 @@ switch($_SERVER['REQUEST_METHOD'])
 
   case 'POST':
       $msg = $_POST['send'];
-      $messages[] = $msg;
+      global $messages[] = $msg;
 
       echo "Message: $msg posted";
       break;
