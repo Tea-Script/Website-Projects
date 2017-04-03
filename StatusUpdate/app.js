@@ -2,21 +2,18 @@ function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
     $.post('./chat.php',{send: msg}, function(response){
         console.log(response);
-        update();
+        
     });
 }
 
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
 
-      console.log(msgs);
+
       if(msgs){
         msgs = msgs.split(',');
-        console.log(msgs);
-        //console.log("Updates Received: ");
         for(var i = 0; i < msgs.length - 1; i++){
           var msg = msgs[i];
-          console.log(msg);
           $('<li>').text(msg).prependTo('.posts');
         }
       }
