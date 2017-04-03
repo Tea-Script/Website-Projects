@@ -17,7 +17,7 @@ switch($_SERVER['REQUEST_METHOD'])
           $messages[] = $msg;
       }
       else{
-        $messages = array($msg);
+        static $messages = array($msg);
       }
       echo "Message: $msg posted";
       break;
