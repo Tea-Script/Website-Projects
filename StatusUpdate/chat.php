@@ -15,6 +15,7 @@ switch($_SERVER['REQUEST_METHOD'])
       break;
 
   case 'POST':
+      $msg = $_POST['send'];
       $f = fopen('chat.txt', 'a');
       fwrite($f, $msg . ",");
       fclose($f);
