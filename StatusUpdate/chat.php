@@ -6,7 +6,6 @@ switch($_SERVER['REQUEST_METHOD'])
   case 'GET':
       if(file_exists("chat.txt")){
           echo file_get_contents("chat.txt"); //submit csv messages to post
-
       }
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
@@ -25,6 +24,10 @@ switch($_SERVER['REQUEST_METHOD'])
         $posts = 0;
         if(file_exists("chat.txt")){
           $posts = count(preg_split("," , file_get_contents("chat.txt"))) - 1;
+        }
+        if($posts >= 7){
+          $posts = 0;
+          file_put_contents('chat.txt', "");
         }
         echo $posts;
 
