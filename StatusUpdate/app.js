@@ -1,6 +1,6 @@
 function chat_send(msg){
     console.log("sending message to server");
-    $.post('./chat.php',{send: post}, function(response){
+    $.post('./chat.php',{send: msg}, function(response){
         console.log(response);
     });
 }
