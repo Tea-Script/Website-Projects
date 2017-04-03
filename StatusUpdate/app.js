@@ -1,11 +1,8 @@
 var msg_total = 0;
 function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
-    $.post('./chat.php',{send: msg}, function(reset){
-        if(reset){
-          msg_total = 0;
-        }
-
+    $.post('./chat.php',{send: msg}, function(numPosts){
+          msg_total = numPosts;
     });
 }
 
@@ -20,6 +17,7 @@ function update(){ //requests new messages from server (automatically every 10s)
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
           msg_total++;
+
         }
       }
     });

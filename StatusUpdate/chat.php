@@ -23,13 +23,8 @@ switch($_SERVER['REQUEST_METHOD'])
       $f = fopen($home . "chat.txt", 'a');
       fwrite($f, $msg . ",");
       fclose($f);
+      echo $posts;
       $posts += 1;
-      if($posts == 1){
-        echo true;
-      }
-      else{
-        echo false;
-      }
       break;
 }
 
