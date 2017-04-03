@@ -8,9 +8,10 @@ function chat_send(msg){ //posts message requests to server
 
 function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
-      
+
       console.log(msgs);
       if(msgs){
+        msgs = msgs.split(',');
         console.log("Updates Received: ");
         for(msg in msgs){
           $('<li>').text(msg).prependTo('.posts');
