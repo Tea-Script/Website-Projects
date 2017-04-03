@@ -9,13 +9,12 @@ switch($_SERVER['REQUEST_METHOD'])
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
-      global $messages = array();
+      $messages = array();
       break;
 
   case 'POST':
       $msg = $_POST['send'];
-      global $messages[] = $msg;
-
+      $messages[] = $msg;
       echo "Message: $msg posted";
       break;
 }
