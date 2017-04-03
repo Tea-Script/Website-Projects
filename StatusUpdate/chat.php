@@ -14,9 +14,9 @@ switch($_SERVER['REQUEST_METHOD'])
       break;
 
   case 'POST':
-      if($posts >= 50){
+      if($posts >= 5){
         file_put_contents("chat.txt", '');
-        echo true;
+        $posts = 0;
       }
 
       $msg = $_POST['send'];
@@ -24,7 +24,12 @@ switch($_SERVER['REQUEST_METHOD'])
       fwrite($f, $msg . ",");
       fclose($f);
       $posts += 1;
-
+      if($posts == 1){
+        echo true;
+      }
+      else{
+        echo false;
+      }
       break;
 }
 
