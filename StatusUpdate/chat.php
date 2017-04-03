@@ -8,6 +8,7 @@ switch($_SERVER['REQUEST_METHOD'])
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
+      unset($messages);
       break;
 
   case 'POST':
@@ -16,14 +17,10 @@ switch($_SERVER['REQUEST_METHOD'])
           $messages[] = $msg;
       }
       else{
-        static $messages = array($msg);
+        $messages = array($msg);
       }
       echo "Message: $msg posted";
       break;
 }
 
-function post($msg){
-  echo "<script type='text/javascript'>$('<li>').text('dummy message').prependTo('.posts');console.log('successful php');</script>";
-  //exit;
-}
 ?>
