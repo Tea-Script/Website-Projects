@@ -11,7 +11,8 @@ switch($_SERVER['REQUEST_METHOD'])
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
-      file_put_contents("chat.txt", '');
+      //file_put_contents("chat.txt", ''); //empty file
+      //truncate file to 512 bytes
       break;
 
   case 'POST':

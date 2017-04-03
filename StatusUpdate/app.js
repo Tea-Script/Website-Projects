@@ -1,8 +1,9 @@
+var msg_total = 0;
 function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
     $.post('./chat.php',{send: msg}, function(response){
         console.log(response);
-        
+
     });
 }
 
@@ -12,13 +13,12 @@ function update(){ //requests new messages from server (automatically every 10s)
 
       if(msgs){
         msgs = msgs.split(',');
-        for(var i = 0; i < msgs.length - 1; i++){
+
+        for(var i = msg_total; i < msgs.length - 1; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
+          msg_total++;
         }
-      }
-      else{/*temporary else for debugging*/
-        console.log("msgs is empty");
       }
     });
 
