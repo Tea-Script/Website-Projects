@@ -13,8 +13,9 @@ function update(){ //requests new messages from server (automatically every 10s)
       if(msgs){
         msgs = msgs.split(',');
         console.log(msgs);
-        console.log("Updates Received: ");
-        for(msg in msgs){
+        //console.log("Updates Received: ");
+        for(var i = 0; i < msgs.length - 1; i++){
+          $msg = msgs[i];
           console.log(msg);
           $('<li>').text(msg).prependTo('.posts');
         }
