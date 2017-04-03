@@ -1,15 +1,17 @@
 <?php
-$messages = array();
+if(!isset($messages)){
+  $messages = array();
+}
 switch($_SERVER['REQUEST_METHOD'])
 {
   case 'GET':
-      if(!isempty($messages)){
+      if(! isempty($messages)){
           echo json_encode($messages); //submit array of messages to post
       }
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
-      global $messages = array();
+      $messages = array();
       break;
 
   case 'POST':
