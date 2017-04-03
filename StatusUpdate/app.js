@@ -1,37 +1,32 @@
 function chat_send(msg){
-    console.log("about to ajax");
-    $.post('index.php', {send: msg});
+    console.log("sending message to server");
+    $.post('./chat.php',{send: post}, function(response){
+        console.log(response);
+    });
 }
-/*
-function update(){
-    if(post){
-        $.get('index.php', {'request' : 'new', 'id' : '0'}).done(function(){
-            $('<li>').text(post).prependTo('.posts');
 
-        });
-    }
+function update(){
+    $.get('./chat.php', function(msgs){
+      if(msgs){
+        for(msg : msgs){
+          $('<li>').text(msg).prependTo('.posts');
+        }
+      }
+    });
+
 }
-*/
+
 var main=function(){
-    //var repeat = setInterval(update, 1000);
+    var repeat = setInterval(update, 10000);
     //var socket = io();
     $('.btn').click(function(){
 
         var post=$('.status-box').val();
-        $.post('./chat.php',{send: post}, function(response){
-            alert(response);
-
-        });
         chat_send(post);
-        //$('<li>').text(post).prependTo('.posts');
-        //socket.emit('chat message', post);
         $('.status-box').val('');
         $('.counter').text(140);
         $(".btn").addClass("disabled");
         });
-    /*socket.on('chat message', function(msg){
-        $('<li>').text(post).prependTo('.posts');
-    });*/
     $('.status-box').keyup(function(){
         var postLength= $(this).val().length;
         var charactersLeft = 140 - postLength;
