@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-$home = "";
+$posts = 0;
 switch($_SERVER['REQUEST_METHOD'])
 {
   case 'GET':
@@ -11,16 +11,20 @@ switch($_SERVER['REQUEST_METHOD'])
       else{
           echo ""; //app.js only posts if it receives a non null input to callback function
       }
-      //file_put_contents("chat.txt", ''); //empty file
-      //truncate file to 512 bytes
       break;
 
   case 'POST':
+      if($posts >= 50){
+        file_put_contents("chat.txt", '');
+        echo true;
+      }
+
       $msg = $_POST['send'];
       $f = fopen($home . "chat.txt", 'a');
       fwrite($f, $msg . ",");
       fclose($f);
-      echo "Message: $msg posted";
+      $posts += 1;
+
       break;
 }
 

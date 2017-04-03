@@ -1,8 +1,10 @@
 var msg_total = 0;
 function chat_send(msg){ //posts message requests to server
     console.log("sending message to server");
-    $.post('./chat.php',{send: msg}, function(response){
-        console.log(response);
+    $.post('./chat.php',{send: msg}, function(reset){
+        if(reset){
+          msg_total = 0;
+        }
 
     });
 }
