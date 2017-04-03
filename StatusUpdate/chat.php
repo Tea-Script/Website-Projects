@@ -14,18 +14,23 @@ switch($_SERVER['REQUEST_METHOD'])
       break;
 
   case 'POST':
-      if($posts >= 5){
-        file_put_contents("chat.txt", '');
-        $posts = 0;
-      }
+      if(isset($_POST['send'])){
+        if($posts >= 5){
+          file_put_contents("chat.txt", ''); //empty file
+          $posts = 0;
+        }
 
-      $msg = $_POST['send'];
-      $f = fopen($home . "chat.txt", 'a');
-      fwrite($f, $msg . ",");
-      fclose($f);
-      echo $posts;
-      $posts += 1;
-      break;
+        $msg = $_POST['send'];
+        $f = fopen($home . "chat.txt", 'a');
+        fwrite($f, $msg . ",");
+        fclose($f);
+        echo $posts;
+        $posts += 1;
+      }
+      elif(isset($_POST['req'])){
+        echo $posts;
+      }
+     break;
 }
 
 ?>
