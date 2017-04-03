@@ -8,7 +8,7 @@ function chat_send(msg){
 function update(){
     $.get('./chat.php', function(msgs){
       if(msgs){
-        for(msg : msgs){
+        for(msg in msgs){
           $('<li>').text(msg).prependTo('.posts');
         }
       }
