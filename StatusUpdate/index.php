@@ -7,8 +7,6 @@
   </head>
   <body>
     <?php include("../navbar.html");
-          error_reporting(E_ALL);
-          ini_set('display_errors', 'on');
     ?>
     <div class="container">
       <form>
@@ -27,6 +25,6 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="./app.js"></script>
-    
+
   </body>
 </html>

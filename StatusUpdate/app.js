@@ -7,7 +7,8 @@ function chat_send(msg){ //posts message requests to server
 }
 
 function update(){ //requests new messages from server (automatically every 10s)
-    $.get('./chat.php', function(msgs){
+    $.get('./chat.php', {req: "all"}, function(msgs){
+      
       console.log(msgs);
       if(msgs){
         console.log("Updates Received: ");
