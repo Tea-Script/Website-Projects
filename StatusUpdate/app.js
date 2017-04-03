@@ -30,7 +30,7 @@ function update(){ //requests new messages from server (automatically every 10s)
 }
 
 var main=function(){
-    msg_total = genNumMsgs();
+    msg_total = getNumMgs();
     var repeat = setInterval(update, 500);
     $('.btn').click(function(){
         var post=$('.status-box').val();
