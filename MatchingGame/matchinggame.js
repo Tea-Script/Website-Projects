@@ -7,8 +7,9 @@ var images = ["http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-
 				"http://theartmad.com/wp-content/uploads/2015/06/Chewbacca-1.png",
 				"http://www.junkiemonkeys.com/wp-content/uploads/2015/11/5mxAOMW-931x1024.jpg",
 				"http://static.giantbomb.com/uploads/original/0/6628/429121-revan_s_return_by_tansy9.jpg"];
+images.forEach( function(path) { new Image().src=path } ); //precache images
 images=images.concat(images)
-var assgnImage = function(imageurl,id){ //for the given id and string, sets the bckgrd img of element #id 
+var assgnImage = function(imageurl,id){ //for the given id and string, sets the bckgrd img of element #id
 	//Id of found image tag//
 	$("#"+id).css("background-image","url("+imageurl +") ");
 	};
@@ -20,7 +21,7 @@ function getRandomInt(min, max) {   //returns randint >max and <=min
 
   //the array of images is shuffled thoroughly
 function RandomImage(images){
-	var n=getRandomInt(0,images.length) 
+	var n=getRandomInt(0,images.length)
 	var m=n
 	var array=[]
 	for (; n < images.length; n++) {
@@ -56,12 +57,12 @@ var main=function(){
 				$('#'+id).removeClass("default");
 				$('#'+id).addClass("active");
 			}
-			
+
 
 			else{
 				var id=$(this).attr('id');
 				$('#'+id).removeClass("default");
-				$('#'+id).addClass("current");			
+				$('#'+id).addClass("current");
 				var idd=$('.active').attr('id');
 				if(id===idd){
 	                                noMatch();
@@ -78,17 +79,17 @@ var main=function(){
 					$(".main").prepend("<div><h1>May The Force Be With You</h1></div>");
 					$(".main").prepend("<img class='special'>");
 					$(".main").prepend('<h2 class = "force"><a href="http://ciaracoding.16mb.com/MatchingGame/">Click here to play again!</a></h2>');
-			        }	
+			        }
 				}
-		
+
 				else{
 	                                pause = true;
 					wait =window.setTimeout(noMatch,1000);
-					
-		                }		
+
+		                }
 		    }
 		}
 	});
-        	
+
 }
 $(document).ready(main);
