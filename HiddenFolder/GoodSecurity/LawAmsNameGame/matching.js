@@ -20,6 +20,7 @@ function main(){
         txt = txt === "namhee" ? "nicole" : txt;
         txt = txt === "artman" ? "arthur" : txt;
         txt = txt === "brawn" ? "david" : txt;
+        txt = txt === "texas" ? "vivien" : txt;
         txt = txt.replace(/[^a-zA-Z]/g, '');
 
         if(key === 13){
@@ -35,6 +36,10 @@ function main(){
               }
               img.src = nxtImg
               img.name = images[nxt].substring(0, images[nxt].indexOf('.'));
+            }
+            else{
+              alert("Umm... No... you need to do better... like seriously?");
+
             }
 
         }
