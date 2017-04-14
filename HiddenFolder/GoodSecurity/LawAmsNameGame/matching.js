@@ -13,12 +13,14 @@ function main(){
         var txt = this.value;
         console.log(typeof txt);
         txt = txt.toLowerCase();
+        txt = txt === "mmat" ? "tamm" : txt;
+        txt = txt === "ttam" ? "matt" : txt;
         txt = txt === "ar0d" ? "alex" : txt;
         txt = txt === "matthew" ? "matt": txt;
         txt = txt === "samuel" ? "sam" : txt;
         txt = txt === "namhee" ? "nicole" : txt;
         txt = txt === "artman" ? "arthur" : txt;
-        txt = txt === "brawn" ? "arthur" : txt;
+        txt = txt === "brawn" ? "david" : txt;
         txt = txt.replace(/[^a-zA-Z]/g, '');
 
         console.log(txt);
