@@ -11,7 +11,6 @@ function main(){
     inpt.addEventListener("keydown", function(e){
         var key = e.which || e.keyCode || 0;
         var txt = this.value;
-        console.log(typeof txt);
         txt = txt.toLowerCase();
         txt = txt === "mmat" ? "tamm" : txt;
         txt = txt === "ttam" ? "matt" : txt;
@@ -23,7 +22,6 @@ function main(){
         txt = txt === "brawn" ? "david" : txt;
         txt = txt.replace(/[^a-zA-Z]/g, '');
 
-        console.log(txt);
         if(key === 13){
             this.value = "";
             if(txt === img.name){
