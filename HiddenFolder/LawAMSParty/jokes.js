@@ -21,7 +21,7 @@ function main(){
           console.log("enter pressed");
           if(txt in images){
             //var nxt = Math.floor(Math.random() * images.length);
-            var nxtImg = "../"+ images[txt + "2"];
+            var nxtImg = "./"+ images[txt + "2"];
             img.src = nxtImg;
           }
 
