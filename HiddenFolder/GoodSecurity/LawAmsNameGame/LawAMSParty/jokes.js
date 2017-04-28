@@ -1,5 +1,5 @@
 function main(){
-  var images = {"chris":"chris.jpg", "dan":"dan.jpg", "arthur":"arthur.jpg", "chris2":"falco.jpg", "dan2":"falco.jpg", "arthur2":"falco.jpg" };
+  var images = {"chris":"Chris1.jpg", "dan":"dan.jpg", "arthur":"ArtMan1.jpg", "dewey" : "Dewey1.jpg", "chris2":"Chris2.jpg", "dan2":"Dan2.jpg", "arthur2":"ArtMan2.png" , "dewey2" : "Dewey2.jpg" };
   var img = document.getElementById("current");
   var inpt = document.getElementById("answer");
   inpt.addEventListener("keydown", function(e){
@@ -9,7 +9,7 @@ function main(){
       txt = txt.replace(/[^a-zA-Z]/g, '');
       for( k in  images){
           if(k.indexOf(txt) !== -1){
-            var nxtImg = "../"+ images[k];
+            var nxtImg = "./"+ images[k];
             img.src = nxtImg;
             break;
 
