@@ -23,7 +23,7 @@ switch($_SERVER['REQUEST_METHOD'])
       if (!$stmt = $con->prepare($sql))
           die('Query failed: (' . $con->errno . ') ' . $con->error);
 
-      if (!$stmt->bind_param('post', $msg))
+      if (!$stmt->bind_param('s', $msg))
           die('Bind Param failed: (' . $con->errno . ') ' . $con->error);
 
       if (!$stmt->execute())
