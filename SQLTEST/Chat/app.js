@@ -54,7 +54,16 @@ var main=function(){
             $('.btn').removeClass('disabled');
         }
     });
-    $('.btn').addClass('disabled')
+    $('.status-box').keydown(function(){
+        if(event.which === 13 && !event.shiftKey){
+              var post=$('.status-box').val();
+              chat_send(post);
+              $('.status-box').val('');
+              $('.counter').text(140);
+              $(".btn").addClass("disabled");
+        }
+    });
+    $('.btn').addClass('disabled');
 };
 
 $(document).ready(main)
