@@ -1,38 +1,63 @@
 <?php
+$con = mysqli_connect("localhost","chatadmin","firefly64","chatdb");
+
+// Check connection
+if (mysqli_connect_errno()){
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  die();
+}
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 switch($_SERVER['REQUEST_METHOD'])
 {
   case 'GET':
 
-      if(file_exists("chat.txt")){
-          //$posts = count(preg_split("," , file_get_contents("chat.txt"))) - 1;
-          echo file_get_contents("chat.txt"); //submit csv messages to post
-          //if($posts >= 7){
-          //}
+      //TODO: lookup all the posts content and send them out
+      $sql = "SELECT post from posts;";
+      $result = mysqli_query($con, $sql);
+      $posts = Array();
+      while($row = mysqli_fetch_assoc($result)){
+        $posts[] = $row['post'];
       }
-      else{
-          echo ""; //app.js only posts if it receives a non null input to callback function
-      }
+      $post = join("\t", $posts);
+      echo $post;
       break;
 
   case 'POST':
       if(isset($_POST['send'])){
         $msg = $_POST['send'];
-        $f = fopen("chat.txt", 'a');
-        fwrite($f, "\n" . $msg );
-        fclose($f);
+        //TODO add message to database
+        $sql = "INSERT INTO posts (post) VALUES (?);";
+      if (!$stmt = $con->prepare($sql))
+          die('Query failed: (' . $con->errno . ') ' . $con->error);
+
+      if (!$stmt->bind_param('s', $msg))
+          die('Bind Param failed: (' . $con->errno . ') ' . $con->error);
+
+      if (!$stmt->execute())
+              die('Insert Error ' . $con->error);
+
+      echo "Record added ";
+      $stmt->close();
+
+        mysqli_query($con, $sql);
+
         echo $msg;
       }
       elseif(isset($_POST['req'])){
-        $posts = count(file("chat.txt"));
+        // COUNT number of posts in database
+        $result = mysqli_query($con,"SELECT COUNT(post) AS 'count' FROM posts;");
+        $row = mysqli_fetch_assoc($result);
+        $posts = $row['count'];
         if($posts > 50 || $posts <= 0){
-          file_put_contents('chat.txt', "");
+           //clear database
+           mysqli_query($con, "TRUNCATE TABLE posts;");
           $posts = 0;
         }
         echo $posts;
       }
      break;
 }
+mysqli_close($con);
 
 ?>

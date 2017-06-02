@@ -15,7 +15,7 @@ function update(){ //requests new messages from server (automatically every 10s)
     $.get('./chat.php', {req: "all"}, function(msgs){
       if(msgs){
         console.log(msg_total);
-        msgs = msgs.split('\n');
+        msgs = msgs.split('\t');
         for(var i = msg_total; i < msgs.length; i++){
           var msg = msgs[i];
           $('<li>').text(msg).prependTo('.posts');
@@ -54,7 +54,17 @@ var main=function(){
             $('.btn').removeClass('disabled');
         }
     });
-    $('.btn').addClass('disabled')
+    $('.status-box').keydown(function(){
+        if(event.which === 13 && !event.shiftKey){
+              event.preventDefault();
+              var post=$('.status-box').val();
+              chat_send(post);
+              $('.status-box').val('');
+              $('.counter').text(140);
+              $(".btn").addClass("disabled");
+        }
+    });
+    $('.btn').addClass('disabled');
 };
 
 $(document).ready(main)

@@ -15,8 +15,7 @@
 					<h1>Bio</h1>
 
               <p>I am a programmer in New England adding various programs to this website.
-                 I've been programming for three years and am currently working on updating the code that
-                 I hadn't backed up when the hosting server removed my website from their server.
+                 I've been programming for three years and am currently learning to use php (see chat room)
                  Coming Soon: Pong AI fix, Scheduling Extension and Android App.
               </p>
 
