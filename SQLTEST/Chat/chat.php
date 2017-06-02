@@ -13,6 +13,11 @@ switch($_SERVER['REQUEST_METHOD'])
   case 'GET':
 
       //TODO: lookup all the posts content and send them out
+      $sql = "SELECT post from posts;";
+      $row = mysqli_query($sql);
+      $row = mysqli_fetch_array($row);
+      $post = join("\t", $row);
+
       break;
 
   case 'POST':
@@ -37,10 +42,13 @@ switch($_SERVER['REQUEST_METHOD'])
         echo $msg;
       }
       elseif(isset($_POST['req'])){
-        //TODO: COUNT number of posts in database
-        $posts = 0;//count(file("chat.txt"));
+        // COUNT number of posts in database
+        $result = mysqli_query("SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
+        $row = mysqli_fetch_assoc($result);
+        $posts = $row['count'];
         if($posts > 50 || $posts <= 0){
-           //TODO clear database
+           //clear database
+           mysqli_query("TRUNCATE TABLE posts;");
           $posts = 0;
         }
         echo $posts;
