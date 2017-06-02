@@ -23,7 +23,7 @@ switch($_SERVER['REQUEST_METHOD'])
       if (!$stmt = $con->prepare($sql))
           die('Query failed: (' . $con->errno . ') ' . $con->error);
 
-      if (!$stmt->bind_param('s', $msg))
+      if (!$stmt->bind_param('post', $msg))
           die('Bind Param failed: (' . $con->errno . ') ' . $con->error);
 
       if (!$stmt->execute())
@@ -32,7 +32,7 @@ switch($_SERVER['REQUEST_METHOD'])
       echo "Record added";
       $stmt->close();
 
-        mysqli_query($con, $query);
+        mysqli_query($con, $sql);
 
         echo $msg;
       }
