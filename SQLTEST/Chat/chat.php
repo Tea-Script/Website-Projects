@@ -37,7 +37,7 @@ switch($_SERVER['REQUEST_METHOD'])
       if (!$stmt->execute())
               die('Insert Error ' . $con->error);
 
-      echo "Record added";
+      echo "Record added ";
       $stmt->close();
 
         mysqli_query($con, $sql);
@@ -49,7 +49,6 @@ switch($_SERVER['REQUEST_METHOD'])
         $result = mysqli_query($con,"SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
         $row = mysqli_fetch_assoc($result);
         $posts = $row['count'];
-        echo $posts;
         if($posts > 50 || $posts <= 0){
            //clear database
            mysqli_query($con, "TRUNCATE TABLE posts;");
