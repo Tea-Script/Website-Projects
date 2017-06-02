@@ -19,9 +19,19 @@ switch($_SERVER['REQUEST_METHOD'])
       if(isset($_POST['send'])){
         $msg = $_POST['send'];
         //TODO add message to database
-        $query = "
-          INSERT INTO 'chatdb' . 'posts' ('post') VALUES (" . $msg . ");
-        ";
+        $sql = "INSERT INTO posts (post) VALUES (?);";
+      if (!$stmt = $con->prepare($sql))
+          die('Query failed: (' . $con->errno . ') ' . $con->error);
+
+      if (!$stmt->bind_param('ssi',$msg))
+          die('Bind Param failed: (' . $con->errno . ') ' . $con->error);
+
+      if (!$stmt->execute())
+              die('Insert Error ' . $con->error);
+
+      echo "Record added";
+      $stmt->close();
+
         mysqli_query($con, $query);
 
         echo $msg;
