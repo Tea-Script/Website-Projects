@@ -14,9 +14,12 @@ switch($_SERVER['REQUEST_METHOD'])
 
       //TODO: lookup all the posts content and send them out
       $sql = "SELECT post from posts;";
-      $row = mysqli_query($con, $sql);
-      $row = mysqli_fetch_array($row);
-      $post = join("\t", $row);
+      $result = mysqli_query($con, $sql);
+      $posts = Array();
+      while($row = mysqli_fetch_assoc($result)){
+        $posts[] = $row['post'];
+      }
+      $post = join("\t", $posts);
       echo $post;
       break;
 
