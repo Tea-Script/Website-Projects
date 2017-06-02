@@ -23,7 +23,7 @@ switch($_SERVER['REQUEST_METHOD'])
       if (!$stmt = $con->prepare($sql))
           die('Query failed: (' . $con->errno . ') ' . $con->error);
 
-      if (!$stmt->bind_param('ssi',$msg))
+      if (!$stmt->bind_param('s', $msg))
           die('Bind Param failed: (' . $con->errno . ') ' . $con->error);
 
       if (!$stmt->execute())
@@ -38,7 +38,7 @@ switch($_SERVER['REQUEST_METHOD'])
       }
       elseif(isset($_POST['req'])){
         //TODO: COUNT number of posts in database
-        $posts = count(file("chat.txt"));
+        $posts = 0;//count(file("chat.txt"));
         if($posts > 50 || $posts <= 0){
            //TODO clear database
           $posts = 0;
