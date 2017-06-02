@@ -14,7 +14,7 @@ switch($_SERVER['REQUEST_METHOD'])
 
       //TODO: lookup all the posts content and send them out
       $sql = "SELECT post from posts;";
-      $row = mysqli_query($sql);
+      $row = mysqli_query($con, $sql);
       $row = mysqli_fetch_array($row);
       $post = join("\t", $row);
 
@@ -43,12 +43,12 @@ switch($_SERVER['REQUEST_METHOD'])
       }
       elseif(isset($_POST['req'])){
         // COUNT number of posts in database
-        $result = mysqli_query("SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
+        $result = mysqli_query($con,"SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
         $row = mysqli_fetch_assoc($result);
         $posts = $row['count'];
         if($posts > 50 || $posts <= 0){
            //clear database
-           mysqli_query("TRUNCATE TABLE posts;");
+           mysqli_query($con, "TRUNCATE TABLE posts;");
           $posts = 0;
         }
         echo $posts;
