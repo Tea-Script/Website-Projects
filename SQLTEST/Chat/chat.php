@@ -46,7 +46,7 @@ switch($_SERVER['REQUEST_METHOD'])
       }
       elseif(isset($_POST['req'])){
         // COUNT number of posts in database
-        $result = mysqli_query($con,"SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
+        $result = mysqli_query($con,"SELECT COUNT(post) AS 'count' FROM posts;");
         $row = mysqli_fetch_assoc($result);
         $posts = $row['count'];
         if($posts > 50 || $posts <= 0){
