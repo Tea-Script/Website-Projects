@@ -37,6 +37,6 @@ switch($_SERVER['REQUEST_METHOD'])
       }
      break;
 }
-mysql_close($con);
+mysqli_close($con);
 
 ?>

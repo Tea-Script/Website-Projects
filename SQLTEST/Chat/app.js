@@ -56,6 +56,7 @@ var main=function(){
     });
     $('.status-box').keydown(function(){
         if(event.which === 13 && !event.shiftKey){
+              event.preventDefault();
               var post=$('.status-box').val();
               chat_send(post);
               $('.status-box').val('');
