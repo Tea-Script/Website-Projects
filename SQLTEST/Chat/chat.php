@@ -17,7 +17,7 @@ switch($_SERVER['REQUEST_METHOD'])
       $row = mysqli_query($con, $sql);
       $row = mysqli_fetch_array($row);
       $post = join("\t", $row);
-
+      echo $post;
       break;
 
   case 'POST':
@@ -46,6 +46,7 @@ switch($_SERVER['REQUEST_METHOD'])
         $result = mysqli_query($con,"SELECT COUNT(DISTINCT post) AS 'count' FROM posts;");
         $row = mysqli_fetch_assoc($result);
         $posts = $row['count'];
+        echo $posts;
         if($posts > 50 || $posts <= 0){
            //clear database
            mysqli_query($con, "TRUNCATE TABLE posts;");
