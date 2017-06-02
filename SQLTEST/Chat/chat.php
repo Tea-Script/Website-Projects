@@ -1,4 +1,15 @@
 <?php
+$con = mysqli_connect("localhost","chatadmin","firefly64","chatdb");
+
+// Check connection
+if (mysqli_connect_errno()){
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+else{
+  echo "Sucess";
+  echo "<script>alert('Success');</script>";
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 switch($_SERVER['REQUEST_METHOD'])
