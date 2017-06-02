@@ -22,7 +22,7 @@ switch($_SERVER['REQUEST_METHOD'])
         $query = "
           INSERT INTO 'chatdb' . 'posts' ('post') VALUES (" . $msg . ");
         ";
-        mysql_query($query);
+        mysqli_query($query);
 
         echo $msg;
       }
