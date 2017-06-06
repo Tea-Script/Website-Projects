@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Anonymous Chat Room</title>  
+    <title>Anonymous Chat Room</title>
     <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp2/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet">
