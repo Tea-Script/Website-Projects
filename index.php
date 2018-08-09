@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/projects/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="navbar.css">
 		<link rel="stylesheet" href="./WebsiteHomePage.css">
-                <link rel="stylesheet" type="text/css" href="navbar.css">
 		<title>The Programs of Matthew Ciaramitaro</title>
 	</head>
 	<body>
@@ -40,10 +40,12 @@
 	        </div>
 	    	<div id="a">
 	    		<div class="text">
-					<h1>Shiny Web Apps</h1>
+					<h1>Shiny Web Apps and Android Apps</h1>
 					<div class="works">
 						<a class="btn btn-default" href="https://tea-script.shinyapps.io/FinalApp/">Analyzing Popular PoliticalTweets</a>
 						<a class="btn btn-default" href="https://tea-script.shinyapps.io/Assignment_03/">Analyzing Border Patrol Apprehensions 2010-2017</a>
+						<a class="btn btn-default" href="http://ciaracoding.16mb.com/FoundIt">Found It!</a>
+
 					</div>
 				</div>
 			 </div>
