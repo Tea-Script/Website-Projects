@@ -1,0 +1,41 @@
+html{
+  overflow: scroll;
+
+}
+body{
+  background:
+  radial-gradient(circle, transparent 20%, black 20%,
+    black 80%, transparent 80%, transparent),
+  radial-gradient(circle, transparent 20%, black 20%,
+    black 80%, transparent 80%, transparent) 50px 50px,
+  linear-gradient(#cd7f32 8px, transparent 8px) 0 -4px,
+  linear-gradient(90deg, #cd7f32 8px, transparent 8px) -4px 0;
+background-color: black;
+background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px;
+}
+.text{
+  background-color: #A9A9A9; 
+  color: #383838  ;
+  width: 50em;
+  height: 25em;
+  margin-left: 2em;
+  margin-right: 2em;
+  padding-top: 30%;
+  padding-bottom: 70%;
+  text-align: left;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+.text h1{
+  text-align:center;
+  font-size:5vh;
+}
+.text p{
+  margin-top: 15%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size:3vh;
+}

@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost","chatadmin","firefly64","chatdb");
+$con = mysqli_connect("localhost","admin name","password","database name");
 
 // Check connection
 if (mysqli_connect_errno()){

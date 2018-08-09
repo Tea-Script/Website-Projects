@@ -43,7 +43,27 @@ function noMatch(){
         pause = false;
         clearTimeout(wait);
 };
+function preloadImages(array) {
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list;
+    for (var i = 0; i < array.length; i++) {
+        var img = new Image();
+        img.onload = function() {
+            var index = list.indexOf(this);
+            if (index !== -1) {
+                // remove image from the array once it's loaded
+                // for memory consumption reasons
+                list.splice(index, 1);
+            }
+        }
+        list.push(img);
+        img.src = array[i];
+    }
+}
 
+preloadImages(images);
 var main=function(){
 	images=RandomImage(images);
 	for(var i=0;i<=images.length;i++){
@@ -73,7 +93,7 @@ var main=function(){
 					$('#'+id).remove();
 					$('#'+idd).remove();
                                         pause = false;
-					}, 100);
+					}, 1000);
 					if($(".default").length ===0){
 					alert("Congratulations! You have won!");
 					$(".main").prepend("<div><h1>May The Force Be With You</h1></div>");

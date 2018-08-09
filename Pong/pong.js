@@ -1,13 +1,21 @@
-//initial ball direction
-var balldirection = "downleft";
+//initial ball direction is down or up at random
+var up = Math.round(Math.random());
 //distance moved by AI and Player 
-var leftRight = 20;
-var time = 0;
-var score = 0;
+const epsilon = 20;
+var hdist = 10; //horizontal distance traveled by stick
+var bdist = 1; // distance traveled by ball (varies)
+var bdist_restore = bdist;
+if(up) bdist *= -1;
+
+var mutex = 0 //lock to prevent multiple score increments
+noPlayers = false;
+var playerScore = 0;
 var oppScore = 0;
 var frameHeight;
 var frameWidth;
 var counter = 0; //use only for moveball function
+var secondPlayer = false
+
 function adaptToFrame() {  
     /*We get the values*/
     $(".main").css({"height": $(window).height()});   
@@ -25,172 +33,260 @@ function adaptToFrame() {
      
 }
 
-function AIMove(){
-    //controls AI stick movement
-    var posBall = $("#ball").position().left;
-    var posAI = $("#AI").position().left;
-    if((posAI < posBall) /*&& inbounds("right", "AI")*/){
-        $('#AI').animate({left:'+=' + leftRight+ 'px'},20);
+function moveAI(level, key="#AI"){
+    if(level === 3){//todo ML
+
     }
-    else if (posAI > posBall && inbounds("left", "AI")){
-        $('#AI').animate({left:'-=' + leftRight+ 'px'},20);
+    if(level === 1){
+        let ball = getInfo($("#ball"));
+        let AI = getInfo($(key));
+        if(Math.abs(AI.center[0] - ball.center[0]) < epsilon) 
+            return;
+        else if(AI.center[0] < ball.center[0])
+            $(key).animate({left:'+=' + hdist+ 'px'},0);
+        else
+            $(key).animate({left:'-=' + hdist+ 'px'},0);
     }
 }
+function displayScore(){
+    s = secondPlayer ? "Player 2: " : "Computer 2: "
+    t = noPlayers ? "Computer 1: " : "Player 1: "
+    $("#playerScore").text(t + playerScore);
+    $("#oppScore").text(s + oppScore);
 
-//returns true if player is inbounds
+
+}
+//returns true if object is inbounds
 function inbounds(s, piece){
-    var pos1 = $(".container").position();
-    var pos2 = $('#'+piece).position();
-    var w1 = frameWidth;
-    var w2 = $('#'+piece).width();
-    var h1 = frameHeight;
-    var h2 = $('#'+piece).height();
-    //console.log(pos1);
-    //console.log(pos2);
-    
-    if(s === 'left'){
-        if(pos1.left >= pos2.left){
-            if(piece === "ball"){
-                balldirection  = balldirection.replace("left","right");
-            }
-            return false;
-        }
-    }
-    else if(s === 'right'){
-        if(pos1.left+ w1 <= pos2.left + w2){
-            if(piece === "ball"){
-                balldirection = balldirection.replace("right","left");
-            }
-            return false;
-        }
-    }
-    else if(s === 'top'){
-        if(pos1.top >= pos2.top){
-            if(piece === "ball"){
-                balldirection = "";
-            }
-            return false;
-        }
-    }
-    else if(s === 'bottom'){
-        if(pos1.top+h1 <= pos2.top+h2){
-            if(piece === "ball"){
-                balldirection = "";
-            }
-            return false;
-        }
-    }
-    return true;
+    dist = (piece.dom.id === "player" || piece.dom.id === "AI") ? hdist : bdist;
 
-}
-
-var ballspeedx = 2;
-var ballspeedy = 4;
-
-function moveball(){
-    var boolV = true;
-    var boolH = true;
-    if ((balldirection.search("down") !== -1) && inbounds("bottom","ball")){
-        $("#ball").animate({top: '+='+ ballspeedy + 'px'},1);
-        boolV = false;   
-    }
-    else if ((balldirection.search("up") !== -1) && inbounds("top","ball")){
-        $("#ball").animate({top: '-=' +ballspeedy + 'px'},1);   
-        boolV = false;
-    }
-    
-    if ((balldirection.search("left") !== -1) && inbounds("left","ball")){
-        $("#ball").animate({left: '-=' +ballspeedx + 'px'},1);   
-        boolH = false
-    }
-    else if ((balldirection.search("right") !== -1) && inbounds("right","ball")){
-        $("#ball").animate({left: '+=' +ballspeedx+ 'px'},1);   
-        boolH = false;
-    }
-    ballspeedx += .005;
-    ballspeedy += .005; //increase ballspeed slowly over time
-    if (boolV & !counter){
-        resetBall();
-        ballspeedx = 2;
-        ballspeedy = 4
-        while(counter < 2){
-            var clock = setInterval(counter ++,1000);
-        }
-        balldirection = "downleft";
-        clearInterval(clock);
-        counter = 0;
-        score++;
-    }
-}
-function collision(s){
-//determines what the ball should do when it collides with varius objects
-    var ballTop = $("#ball").position().top;
-    var ballBottom = $("#ball").position().top + $("#ball").height();
-    var ballLeft = $("#ball").position().left;
-    var ballRight = $("#ball").position().left + $("#ball").width();
-    
-    var sTop = $("#"+s).position().top;
-    var sBottom = $("#"+s).position().top + $("#"+s).height();
-    var sLeft = $("#"+s).position().left;
-    var sRight = $("#"+s).position().left + $("#"+s).width();
-    if(sLeft <= ballRight && sRight >= ballRight || sRight >= ballLeft && sLeft <= ballLeft){
-        if(s==="AI" && ballTop <= sBottom && ballTop >= sTop)    return true;
-        else if(s==="player" && ballBottom >= sTop && ballBottom <= sBottom) return true;
-    }
+    if(s === "left" && piece.left - dist > 0) return true;
+    if(s === "right" && piece.right + dist < frameWidth) return true;
+    if(s === "top" && piece.top > 0) return true;
+    if(s === "bottom" && piece.bottom < frameHeight) return true;
     return false;
 }
+var bhv = 0;
+var bvv = bdist;
+
+function moveball(){
+    collisionHandler();
+    $('#ball').animate({top: "+=" + bvv+ 'px'},0);
+    $('#ball').animate({left: "+=" + bhv+ 'px'},0);
+}
+function collision(s, piece){
+//returns if the piece collides with s
+    let stick = getInfo($("#" + s));
+    if(piece.right >= stick.left && piece.left <= stick.right){
+        if(piece.bottom >= stick.top && piece.top <= stick.top)
+            return true;
+        else if(piece.top <= stick.bottom && piece.bottom >= stick.bottom)
+            return true;
+
+    }
+
+    return false;
+
+}
 function resetBall(){
-    //place ball at center of screen
-    //var position_top = $(".container").height() / 2;
-    //var position_left = $(".container").width() / 2;
-    $("#ball").css({"top": "50%", "left": "50%"}); 
+    displayScore();
+    bdist = bdist_restore;
+    $("#ball").css({"top":"50%", "left":"50%"});
+    $(".stick").css({"left":"50%"});
+    up = Math.round(Math.random());
+    if(up) bdist = Math.abs(bdist) * -1;
+    else bdist = Math.abs(bdist);
+    bhv = 0;
+    bvv = bdist;
+    mutex = 0;
+}
+function ballRefract(s, piece){
+    //determines how the ball should behave after a collision
+    let stick = getInfo($("#" + s));
+    w = stick.width / 2;
+    let l1 = piece.center[0],
+        l2 = stick.center[0];
+    let d = l1 - l2;
+    let pct = d/w;
+    bhv = pct*Math.abs(bdist) / 2;
+    console.log("new horizontal velocity: " + bhv);
+    let dir = s === "AI" ? 1 : -1;
+    bvv = dir*(Math.abs(bdist) - Math.abs(bhv));
+    console.log("new vertical velocity: " + bvv);
+    console.log("velocity sum: " + bdist);
+
+}
+function collisionHandler(){
+    var ball = getInfo($("#ball"));
+    ball.top += bvv;
+    ball.left += bhv;
+    if(!inbounds("left", ball)) bhv = Math.abs(bhv);
+    if(!inbounds("right", ball)) bhv = -1*Math.abs(bhv);
+
+    if(!inbounds("top", ball) && !mutex) {
+        mutex = 1
+        setTimeout( () =>{
+            playerScore += 1;
+            resetBall();
+        }
+        ,300);
+    }
+    if(!inbounds("bottom", ball) && !mutex) {
+        mutex = 1
+        setTimeout( () =>{
+            oppScore += 1;
+            resetBall();
+        }
+        ,300);
+    }
+
+    if(collision("player", ball)){
+        ballRefract("player", ball);
+        bdist = bdist < 0 ? bdist - .1 : bdist + .1;
+
+    }
+    else if(collision("AI", ball)){
+        ballRefract("AI", ball);
+        bdist = bdist < 0 ? bdist - .1 : bdist + .1;
+    }
+
 }
 
-function ballRefract(player){
-    //returns direction ball should bounce in after collision
-    var midpoint = $('#'+player).position().left + $('#'+player).width()/2
-    var ballMid = $('#ball').position().left + $('#ball').width()/2
-    if(ballMid < midpoint && balldirection.search("left") !== -1){
-        return "left";
+
+
+
+function getInfo(DOM){
+    //Returns object based on DOM with properties center, top, bottom, left, right, width, and height
+    var l = DOM.position().left,
+    t = DOM.position().top;
+    
+    var b = t + DOM.height(),
+    r = l + DOM.width();
+    var cx = (l + r) / 2,
+    cy = (t + b) / 2 ;
+
+    var obj = {dom: DOM, top: t, left: l, bottom: b, right: r, center: [cx,cy], width: DOM.width(), height: DOM.height()};
+    return obj;
+} 
+
+function setPlayers(n){
+    if(n > 0){
+        secondPlayer = true;
     }
-    else if(ballMid >= midpoint && balldirection.search("left") !== -1){
-        return "right";
+    else if(n < 0){
+        noPlayers = true;
     }
-    else if(ballMid >= midpoint && balldirection.search("right") !== -1){
-        return "right";
+    $(".container").css("display", "block").fadeIn(2000);
+    $("#score").css("display", "inline").fadeIn(2000);
+    $(".numplayers").css({"display":"none"});
+    
+}
+
+function movePlayers(keys){
+    var player = getInfo($("#player"));
+    var opp = getInfo($("#AI"));
+    if(keys[37] || keys[39]){
+        if(keys[37]){
+            // Left arrow key pressed            
+            if(inbounds("left", player)){
+                $('#player').animate({left:'-=' + hdist+ 'px'},0);
+                player = getInfo($("#player"));
+
+            }
+        
+            if(keys[65]){
+                if(secondPlayer){
+                    if(inbounds("left", opp)){
+                        $('#AI').animate({left:'-=' + hdist+ 'px'},0);
+                        opp = getInfo($("#AI"));
+
+                    }
+                }
+            }
+            if(keys[68]){
+                if(secondPlayer){
+                    if(inbounds("right", opp)){
+                        $('#AI').animate({left:'+=' + hdist+ 'px'},0);
+                        opp = getInfo($("#AI"));
+
+                    }
+                }
+            }
+
+
+        }
+            // Right Arrow Pressed
+        if(keys[39]){
+            if(inbounds("right", player)){
+                $('#player').animate({left:'+=' + hdist+ 'px'},0);
+                player = getInfo($("#player"));
+
+            }
+        
+            if(keys[65]){
+                if(secondPlayer){
+                    if(inbounds("left", opp)){
+                        $('#AI').animate({left:'-=' + hdist+ 'px'},0);
+                        opp = getInfo($("#AI"));
+
+                    }
+                }
+            }
+
+            if(keys[68]){
+                if(secondPlayer){
+                    if(inbounds("right", opp)){
+                        $('#AI').animate({left:'+=' + hdist+ 'px'},0);
+                        opp = getInfo($("#AI"));
+
+                    }
+                }
+
+            }
+
+        }
     }
     else{
-        return "left";
+        if(keys[65]){
+            if(secondPlayer){
+                if(inbounds("left", opp)){
+                    $('#AI').animate({left:'-=' + hdist+ 'px'},0);
+                    opp = getInfo($("#AI"));
+
+                }
+            }
+        }
+        if(keys[68]){
+            if(secondPlayer){
+                if(inbounds("right", opp)){
+                    $('#AI').animate({left:'+=' + hdist+ 'px'},0);
+                    opp = getInfo($("#AI"));
+
+                }
+            }
+
+        }
+    }
+}
+var move;
+
+function GameOver(){
+    if(playerScore === 10){
+        clearInterval(move);
+        $(".container").css("display", "none");
+        $("#victory").css("display", "block");
+        resetBall();
+    }    
+    else if(oppScore === 10){
+        clearInterval(move);
+        $(".container").css("display", "none");
+        $("#gameover").css("display", "block");
+        resetBall();
     }
 
 }
-function changeDirections(player){
-    if(collision(player)){
-        console.log(balldirection);
-            if(player === "AI" && balldirection.search("up") !== -1){
-                balldirection = balldirection.replace("up","down");
-            }
-            else if(player === "player" && balldirection.search("down") !== -1){
-                balldirection = balldirection.replace("down","up");
-            }
-            else{
-            var temp;
-            }
-            if(balldirection.search("left") !== -1){
-                balldirection = balldirection.replace("left",ballRefract(player));
-            }
-            else if(balldirection.search("right") !== -1){
-                balldirection = balldirection.replace("right",ballRefract(player));
-            }
-
-
-
-
-    }
-
-}
-
 var main= function(){
+    displayScore();
     adaptToFrame();
 
     $(window).resize(function() {
@@ -198,36 +294,39 @@ var main= function(){
     });   
 
 
-    $(".stick").draggable();
-    $("#ball").draggable();
-    var time = 1;
-    var loop = setInterval(moveball, 30);
-    var AILoop = setInterval(AIMove, 80); 
-    var changedirections = setInterval(function() {
-        changeDirections("AI");
-        changeDirections("player");
-            
-    },1);
+    var keys = {};
 
-    $(document).keydown(function(key) {
-        switch(parseInt(key.which,10)) {
-            // Left arrow key pressed            
-            case 37:
-                 console.log("leftkey");
-                 if(inbounds("left","player")){
-                    $('#player').animate({left:'-=' + leftRight+ 'px'},0);
-                    break;
-                                }
-            // Right Arrow Pressed
-            case 39:
-                 if(inbounds("right","player")){
-                    $('#player').animate({left:'+=' + leftRight+ 'px'},0);
-                    break;
-                                }
-        }
-                $(document).keyup(function(){
-                    time = 1;
-                });
+    $(document).keydown(function (e) {
+        keys[e.which] = true;
+        if([37, 39, 68, 65].indexOf(e.which) + 1) e.preventDefault();
     });
+
+    $(document).keyup(function (e) {
+        delete keys[e.which];
+        if([37, 39, 68, 65].indexOf(e.which) + 1) e.preventDefault();
+    });
+
+    if(!secondPlayer){
+        setInterval(() => moveAI(1), 25);
+    }
+
+    if(noPlayers){
+        setInterval(() => moveAI(1, key="#player"), 25);
+
+    }
+    else{
+        setInterval(() => movePlayers(keys), 10);
+    }
+    move = setInterval(moveball,2);
+    setInterval(GameOver, 200);
+        
+    
 };
-$(document).ready(main);        
+start = () =>{
+    
+    if($(".numplayers").css("display") === "none"){ 
+        $(document).ready(main);
+        clearInterval(z);
+    }        
+}
+var z = setInterval(start, 1000);

@@ -34,11 +34,11 @@ function move(){
                     break;
             //Up Arrow pressed
             case 38:
-                    $('#car').animate({top:'-=' + 25 + 'px'},5/*,"linear"*/);
+                    $('#car').animate({top:'-=' + 2 + 'px'},5/*,"linear"*/);
                     break;
             //Down Arrow pressed
             case 40:
-                    $('#car').animate({top:'+=' + 25 + 'px'},5,"linear");
+                    $('#car').animate({top:'+=' + 2 + 'px'},5,"linear");
                     break;
         }
       });
@@ -93,7 +93,7 @@ function accel(){
 
 }
 function go(){
-    $('#car').animate({left:'+=' + speed+ 'px'},5/*,"linear"*/);
+    $('#car').animate({left:'+=' + speed+ 'px'},10/*,"linear"*/);
     console.log(speed);
 }
 var main= function(){
@@ -102,6 +102,6 @@ var main= function(){
     $('#car').draggable()
     setInterval(changecolor, 3000);
     move();
-    setInterval(center,.1);
+    setInterval(center,.0005);
 };
 $(document).ready(main);
